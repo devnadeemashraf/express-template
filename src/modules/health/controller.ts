@@ -1,7 +1,6 @@
 import { Request, Response } from "@/app";
-import AppError from "@/shared/utils/appError";
 
-import ResponseHandler from "@/shared/utils/responseHandler";
+import ResponseHandler from "@/shared/utils/response-handler";
 
 class HealthController {
   getHealth(_req: Request, _resp: Response) {
@@ -13,13 +12,6 @@ class HealthController {
       undefined,
       "Server is Running!",
       undefined
-    );
-  }
-
-  getErrorTest(_req: Request, _resp: Response) {
-    throw new AppError(
-      "Trying to Throw an Error to see if it was caught",
-      "FORBIDDEN"
     );
   }
 }

@@ -3,9 +3,10 @@ import express, { Router } from "express";
 import type { Express, Request, Response, NextFunction } from "express";
 
 import healthRouter from "@/modules/health/routes";
+import { openAPIRouter } from "@/modules/api-docs/openAPI-router";
 
 import config from "@/shared/config";
-import errorHandler from "@/shared/middleware/errorHandler";
+import errorHandler from "@/shared/middleware/error-handler";
 
 const app: Express = express();
 
@@ -24,6 +25,9 @@ app.use(
 // Routes
 app.use(config.api.v1 + "/health", healthRouter);
 
+// Swagger Docs
+app.use(openAPIRouter);
+
 // Middlewares
 app.use(errorHandler);
 
@@ -34,4 +38,4 @@ export default app;
 export { Router };
 
 // 'express' package types export
-export { Request, Response, NextFunction };
+export { Express, Request, Response, NextFunction };

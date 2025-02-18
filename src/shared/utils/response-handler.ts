@@ -1,7 +1,7 @@
-import { Response } from '@/app';
-import { APIResponse } from '@/shared/interfaces/apiResponse';
+import { Response } from "@/app";
+import { APIResponse } from "@/shared/interfaces/api-response";
 
-import { HTTPStatusWithCode, THTTPStatus } from '@/shared/utils/httpCodes';
+import { HTTPStatusWithCode, THTTPStatus } from "@/shared/utils/http-codes";
 
 class ResponseHandler {
   // Prevents Instance Creation
@@ -9,12 +9,12 @@ class ResponseHandler {
 
   static sendResponse<T>(
     _resp: Response,
-    _type: 'OK' | 'PENDING' | 'ERROR' = 'OK',
-    _status: THTTPStatus = 'OK',
+    _type: "OK" | "PENDING" | "ERROR" = "OK",
+    _status: THTTPStatus = "OK",
     _data: T,
     _error?: any,
     _message?: string,
-    _meta?: any,
+    _meta?: any
   ) {
     const { code, message } = HTTPStatusWithCode[_status];
     const response: APIResponse<T> = {

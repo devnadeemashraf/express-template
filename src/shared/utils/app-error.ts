@@ -1,4 +1,4 @@
-import { HTTPStatusWithCode, THTTPStatus } from "./httpCodes";
+import { HTTPStatusWithCode, THTTPStatus } from "./http-codes";
 
 class AppError extends Error {
   readonly code: Number;
