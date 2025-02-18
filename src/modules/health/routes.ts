@@ -1,11 +1,10 @@
-import { Router } from '@/app';
+import { Router } from "@/app";
 
-import healthController from './controller';
+import healthController from "./controller";
 
-const healthRouter: Router = Router({
-  strict: true,
-});
+const healthRouter: Router = Router();
 
-healthRouter.get('/', healthController.getHealth);
+healthRouter.get("/", healthController.getHealth);
+healthRouter.get("/error", healthController.getErrorTest);
 
 export default healthRouter;
