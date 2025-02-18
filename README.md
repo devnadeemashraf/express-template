@@ -30,7 +30,7 @@ graph TD
     B --> D[User Module]
     B --> E[Product Module]
     C --> F[(Redis)]
-    D --> G[(MongoDB)]
+    D --> G[(Database)]
     E --> G
     style B fill:#4CAF50,stroke:#388E3C
     style C fill:#2196F3,stroke:#1976D2
@@ -127,7 +127,7 @@ mkdir -p src/modules/new-feature/{application,domain,infrastructure}
 ```typescript
 // Example Service
 export class NewFeatureService {
-  constructor(@inject('Repository') private repository: IRepository) {}
+  constructor(@inject("Repository") private repository: IRepository) {}
 
   async executeBusinessLogic() {
     return this.repository.find();
