@@ -4,21 +4,21 @@
 
 ### TypeScript Setup (4 tasks | 2.5 hours)
 
-- [ ] Initialize npm project  
+- [x] Initialize npm project  
        `pnpm init -y`  
-       Status: Not Started | Estimate: 10min
+       Status: Finished | Estimate: 10min
 
-- [ ] Configure TypeScript  
+- [x] Configure TypeScript  
        `tsc --init` with strict: true  
-       Status: Not Started | Estimate: 20min
+       Status: Finished | Estimate: 20min
 
-- [ ] Path Aliases  
+- [x] Path Aliases  
        Configure `baseUrl` and `paths` in tsconfig  
-       Status: Not Started | Estimate: 15min
+       Status: Finished | Estimate: 15min
 
-- [ ] Basic Express Server  
+- [x] Basic Express Server  
        Create `src/server.ts` with hello world  
-       Status: Not Started | Estimate: 30min
+       Status: Finished | Estimate: 30min
 
 ### Docker Environment (3 tasks | 2 hours)
 
@@ -27,7 +27,7 @@
        Status: Not Started | Estimate: 45min
 
 - [ ] docker-compose.yml  
-       Node + MongoDB + Redis services  
+       Node + PostgreSQL + Redis services  
        Status: Not Started | Estimate: 30min
 
 - [ ] Dev Scripts  
@@ -60,25 +60,25 @@
 
 ### Database (6 tasks | 6 hours)
 
-- [ ] Prisma Init  
+- [x] Prisma Init  
        `npx prisma init`  
-       Status: Not Started | Estimate: 15min
+       Status: Finished | Estimate: 15min
 
-- [ ] User Model  
-       `User` schema with core fields  
-       Status: Not Started | Estimate: 30min
+- [x] Schema & Models  
+       `User` and other related schema with core fields  
+       Status: Finished | Estimate: 30min
 
 - [ ] Base Repository  
        Generic CRUD operations  
        Status: Not Started | Estimate: 2h
 
-- [ ] DB Client Singleton  
+- [x] DB Client Singleton  
        Prevent multiple instances  
-       Status: Not Started | Estimate: 1h
+       Status: Finished | Estimate: 1h
 
-- [ ] Migrations  
+- [x] Migrations  
        Initial migration file  
-       Status: Not Started | Estimate: 30min
+       Status: Finished | Estimate: 30min
 
 - [ ] Seeding Script  
        `prisma/seed.ts` for test data  

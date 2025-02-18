@@ -1,0 +1,218 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMIN
+  MODERATOR
+  SUPPORT
+  USER
+}
+
+enum ActionEventCategory {
+  AUTHENTICATION
+  PASSWORD
+  ACCOUNT
+  SECURITY
+  SESSION
+  GENERIC
+}
+
+enum ActionEventType {
+  // Authentication Events
+  LOGIN_SUCCESS
+  LOGIN_FAILED
+  LOGOUT
+  REFRESH_TOKEN
+
+  // Password Events
+  PASSWORD_RESET_REQUEST
+  PASSWORD_RESET_SUCCESS
+  PASSWORD_RESET_FAILED
+  PASSWORD_CHANGE
+
+  // Account Events
+  EMAIL_CHANGE
+  EMAIL_VERIFICATION
+  TWO_FACTOR_UPDATE
+  PROFILE_UPDATE
+
+  // Security Events
+  ROLE_CHANGE
+  ACCOUNT_LOCK
+  ACCOUNT_UNLOCK
+  ACCOUNT_DELETE
+
+  // Session Events
+  SESSION_CREATE
+  SESSION_REVOKE
+  SESSION_TIMEOUT
+
+  // Generic
+  OTHER
+}
+
+model User {
+  id              String    @id @default(uuid())
+  roles           Role[]    @default([USER])
+  username        String    @unique
+  passwordHash    String
+  email           String?   @unique
+  isEmailVerified Boolean   @default(false)
+  is2FAEnabled    Boolean   @default(false)
+  allowedSessions Int       @default(3)
+  status          String    @default("ACTIVE") // New field for user status
+  lastLoginAt     DateTime? // New field to track last login
+
+  // Relations
+  profile      Profile?
+  verification Verification?
+  sessions     Session[]
+  devices      Device[]
+  actions      Action[]
+  followers    Follow[]      @relation("Following")
+  following    Follow[]      @relation("Followers")
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([username])
+  @@index([email])
+  @@index([status])
+  @@map("users")
+}
+
+model Profile {
+  id        String  @id @default(uuid())
+  userId    String  @unique
+  firstName String? @db.VarChar(50)
+  lastName  String? @db.VarChar(50)
+  about     String? @db.Text
+  location  Json? // Structured location data
+  headshot  String? @db.VarChar(255)
+  cover     String? @db.VarChar(255)
+
+  // Denormalized counts with update triggers
+  followersCount Int @default(0)
+  followingCount Int @default(0)
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@map("profiles")
+}
+
+model Follow {
+  followerId String
+  followeeId String
+  createdAt  DateTime @default(now())
+
+  // Relations
+  follower User @relation("Followers", fields: [followerId], references: [id], onDelete: Cascade)
+  followee User @relation("Following", fields: [followeeId], references: [id], onDelete: Cascade)
+
+  @@id([followerId, followeeId])
+  @@index([followerId])
+  @@index([followeeId])
+  @@map("follows")
+}
+
+model Verification {
+  id            String    @id @default(uuid())
+  userId        String    @unique
+  token         String?   @unique
+  type          String // Type of verification (email, password reset, etc.)
+  expiresAt     DateTime?
+  attempts      Int       @default(0)
+  lastAttemptAt DateTime?
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([token])
+  @@map("verifications")
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  userId       String
+  token        String   @unique
+  expiresAt    DateTime
+  deviceId     String?
+  isRevoked    Boolean  @default(false)
+  lastActiveAt DateTime @default(now())
+
+  // Relations
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  device Device? @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([token])
+  @@index([deviceId])
+  @@map("sessions")
+}
+
+model Device {
+  id         String   @id @default(uuid())
+  userId     String
+  nickname   String?  @db.VarChar(50)
+  details    Json // Structured device information
+  isActive   Boolean  @default(true)
+  lastUsedAt DateTime @default(now())
+
+  // Relations
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessions Session[]
+  actions  Action[]
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@map("devices")
+}
+
+model Action {
+  id        String              @id @default(uuid())
+  userId    String
+  category  ActionEventCategory
+  type      ActionEventType
+  metadata  Json? // Structured event data
+  deviceId  String?
+  ipAddress String?             @db.VarChar(45)
+
+  // Relations
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  device Device? @relation(fields: [deviceId], references: [id])
+
+  // Timestamps
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([category])
+  @@index([type])
+  @@index([deviceId])
+  @@index([createdAt])
+  @@map("actions")
+}
