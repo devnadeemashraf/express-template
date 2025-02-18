@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 import { OpenAPIRegistry } from "@asteasolutions/zod-to-openapi";
-import { createApiResponse } from "@/modules/api-docs/openAPI-response-builder";
+import { createApiResponse } from "@/shared/api-docs/openAPI-response-builder";
 
 const healthCheckRegistry = new OpenAPIRegistry();
 

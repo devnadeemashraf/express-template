@@ -11,6 +11,8 @@ export function generateOpenAPIDocument() {
 
   const generator = new OpenApiGeneratorV3(registry.definitions);
 
+  // Swagger API Description
+  // TODO: Better to move it to some Config file
   return generator.generateDocument({
     openapi: "3.0.0",
     info: {

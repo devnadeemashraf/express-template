@@ -3,14 +3,17 @@ import express, { Router } from "express";
 import type { Express, Request, Response, NextFunction } from "express";
 
 import healthRouter from "@/modules/health/routes";
-import { openAPIRouter } from "@/modules/api-docs/openAPI-router";
+import { openAPIRouter } from "@/shared/api-docs/openAPI-router";
+
+import errorHandler from "@/shared/middleware/error-handler-middleware";
+import loggerMiddleware from "@/shared/middleware/logger-middleware";
 
 import config from "@/shared/config";
-import errorHandler from "@/shared/middleware/error-handler";
 
 const app: Express = express();
 
 // Middlewares
+app.use(loggerMiddleware);
 app.use(
   express.json({
     limit: "1mb",

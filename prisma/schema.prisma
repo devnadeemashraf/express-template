@@ -216,3 +216,21 @@ model Action {
   @@index([createdAt])
   @@map("actions")
 }
+
+model Logs {
+  id String @id @default(uuid())
+
+  level      String // e.g. 'info', 'error', etc.
+  message    String
+  route      String // Route being accessed (e.g. /api/users)
+  controller String // Controller handling the request (e.g. UsersController)
+  data       Json?
+
+  createdAt DateTime @default(now()) // Timestamp of the log entry
+
+  @@index([createdAt])
+  @@index([level])
+  @@index([route])
+  @@index([controller])
+  @@map("logs")
+}
