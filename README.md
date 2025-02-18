@@ -11,7 +11,7 @@ A production-ready Node.js/Express backend template with TypeScript, following S
 - ✅ Layered Architecture (Controller-Service-Repository)
 - 🔐 JWT Authentication (HTTP-only cookies + Bearer tokens)
 - 🛡️ Security Best Practices (Helmet, rate limiting, sanitization)
-- 🗄️ Database Agnostic (MongoDB/PostgreSQL ready)
+- 🗄️ Database Agnostic (PostgreSQL/PostgreSQL ready)
 - 📈 Redis Caching & Pub/Sub
 - 📝 OpenAPI Documentation
 - 🧪 Jest Testing with 95% coverage
@@ -43,10 +43,6 @@ graph TD
 
 ```
 src/
-├── core/                           # Domain-driven core components
-│   ├── interfaces/                 # Domain-driven Interfaces
-│   └── validators/                 # Domain-driven and Misc. Validators
-│
 ├── modules/                        # Feature modules
 │   └── auth/                       # Example feature module
 │       └── v1/                     # Feature Version
@@ -79,7 +75,7 @@ src/
 - Node.js 23+
 - pnpm
 - Docker & Docker Compose
-- MongoDB & Redis
+- PostgreSQL & Redis
 
 ### Installation
 
@@ -93,12 +89,53 @@ cp .env.example .env
 ### Configuration
 
 ```env
-# .env
-NODE_ENV=development
+# ========================
+# Core Configuration
+# ========================
+HOST='http://localhost'
 PORT=3000
-MONGO_URI=mongodb://localhost:27017/app
-REDIS_URL=redis://localhost:6379
-JWT_SECRET=your_secure_secret
+NODE_ENV='development'
+
+# ========================
+# Database
+# ========================
+DATABASE_URL='postgres://postgres:password@localhost:5432/local'
+REDIS_URL='redis://localhost:6379'
+
+# ========================
+# Authentication
+# Use: "openssl rand --hex 32" to generate secret keys
+# ========================
+JWT_SECRET='your_super_hard_secret'
+JWT_EXPIRES_IN='15m'
+REFRESH_TOKEN_EXPIRES_IN='7d'
+COOKIE_SECRET='your_super_hard_secret'
+
+# ========================
+# Security
+# ========================
+CORS_ORIGIN=['http://localhost:3000','http://localhost:5173']
+RATE_LIMIT_DURATION='15s'
+RATE_LIMIT_MAX='100'
+
+# ========================
+# Email (SMTP)
+# ========================
+SMTP_HOST='smtp.mailtrap.io'
+SMTP_PORT=2525
+SMTP_USER='your_smtp_user'
+SMTP_PASSWORD='your_smtp_password'
+EMAIL_FROM='no-reply@yourapp.com'
+
+# ========================
+# Monitoring
+# ========================
+SENTRY_DSN='your_sentry_dsn'
+
+# ========================
+# API Documentation
+# ========================
+SWAGGER_ENABLED=true
 ```
 
 ### Running Locally
@@ -170,6 +207,4 @@ We welcome contributions! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) bef
 
 ## License 📄
 
-```
-MIT © Nadeem Ashraf
-```
+You can read about the License [here](LICENSE.md).

@@ -113,11 +113,3 @@ Use our issue template:
 ## Need Help? 🙋
 
 Join our [Discussions](https://github.com/yourusername/express-template/discussions) forum!
-
----
-
-Thank you for being part of our community! 💖
-
-```
-
-```
