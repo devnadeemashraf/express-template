@@ -11,7 +11,12 @@
     "type-check": "tsc --noEmit",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:perf": "jest --testNamePattern='Performance Tests'",
+    "test:edge": "jest --testNamePattern='Edge Cases'"
   },
   "keywords": [
     "express",
@@ -37,10 +42,13 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
     "@types/module-alias": "^2.0.4",
     "@types/node": "^22.13.4",
     "@types/swagger-ui-express": "^4.1.7",
+    "jest": "^29.7.0",
     "rimraf": "^6.0.1",
+    "ts-jest": "^29.2.5",
     "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.19.2",
@@ -68,5 +76,12 @@
       "@prisma/engines",
       "prisma"
     ]
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    }
   }
 }

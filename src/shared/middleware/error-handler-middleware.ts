@@ -13,6 +13,7 @@ const errorHandler = (
   const isDevelopment = config.nodeEnv === "development";
   ResponseHandler.sendResponse(_response, "ERROR", _error.status, undefined, {
     description: _error.message,
+    data: _error.data ? _error.data : undefined,
     code: isDevelopment ? _error.code : undefined,
     cause: isDevelopment ? _error.cause : undefined,
     name: isDevelopment ? _error.name : undefined,

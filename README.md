@@ -11,7 +11,7 @@ A production-ready Node.js/Express backend template with TypeScript, following S
 - ✅ Layered Architecture (Controller-Service-Repository)
 - 🔐 JWT Authentication (HTTP-only cookies + Bearer tokens)
 - 🛡️ Security Best Practices (Helmet, rate limiting, sanitization)
-- 🗄️ Database Agnostic (PostgreSQL/PostgreSQL ready)
+- 🗄️ Database Agnostic (PostgreSQL ready)
 - 📈 Redis Caching & Pub/Sub
 - 📝 OpenAPI Documentation
 - 🧪 Jest Testing with 95% coverage
