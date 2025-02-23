@@ -1,6 +1,6 @@
 import { Router } from "@/app";
 
-import healthController from "./controller";
+import healthController from "./controllers";
 
 const healthRouter: Router = Router();
 

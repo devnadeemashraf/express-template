@@ -5,6 +5,10 @@ import { createApiResponse } from "@/shared/api-docs/openAPI-response-builder";
 
 const healthCheckRegistry = new OpenAPIRegistry();
 
+/**
+ * API Specification
+ * Version: v1
+ */
 healthCheckRegistry.registerPath({
   method: "get",
   path: "/api/v1/health",

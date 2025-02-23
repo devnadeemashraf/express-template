@@ -3,7 +3,7 @@ import express, { Router } from "express";
 import type { Express, Request, Response, NextFunction } from "express";
 
 import healthRouter from "@/modules/health/routes";
-import authRouterV1 from "@/modules/auth/v1/routes";
+// import authRouterV1 from "@/modules/auth/v1/routes";
 
 import { openAPIRouter } from "@/shared/api-docs/openAPI-router";
 
@@ -29,8 +29,8 @@ app.use(
 
 // Routes
 app.use(config.api.v1 + "/health", healthRouter);
-app.use(config.api.v1 + "/auth", authRouterV1);
-app.use(config.api.v1 + "/user", authRouterV1);
+// app.use(config.api.v1 + "/auth", authRouterV1);
+// app.use(config.api.v1 + "/user", authRouterV1);
 
 // Swagger Docs
 app.use(openAPIRouter);

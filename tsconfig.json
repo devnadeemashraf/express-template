@@ -34,6 +34,7 @@
     /* Advanced */
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
 
     /* Additional Types */
     "typeRoots": ["./node_modules/@types", "./src/types"]

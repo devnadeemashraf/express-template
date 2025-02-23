@@ -1,5 +1,5 @@
 import { Response } from "@/app";
-import { APIResponse } from "@/shared/interfaces/api-response";
+import { IAPIResponse } from "@/shared/interfaces/api-response";
 
 import { HTTPStatusWithCode, THTTPStatus } from "@/shared/utils/http-codes";
 
@@ -9,7 +9,6 @@ class ResponseHandler {
 
   static sendResponse<T>(
     _resp: Response,
-    _type: "OK" | "PENDING" | "ERROR" = "OK",
     _status: THTTPStatus = "OK",
     _data: T,
     _error?: any,
@@ -17,8 +16,8 @@ class ResponseHandler {
     _meta?: any
   ) {
     const { code, message } = HTTPStatusWithCode[_status];
-    const response: APIResponse<T> = {
-      status: _type,
+    const response: IAPIResponse<T> = {
+      status: _status,
       message: _message ? _message : message,
       data: _data,
       error: _error,

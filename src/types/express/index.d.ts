@@ -1,5 +1,5 @@
 import { ILogRequestResponseData } from "@/shared/logger";
-import { Request } from "express";
+import { Request } from "@/app";
 
 declare global {
   namespace Express {
